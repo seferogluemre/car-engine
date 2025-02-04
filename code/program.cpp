@@ -49,24 +49,22 @@ void loop()
     }
     else if (temperature <= LOW_TEMP_THRESHOLD)
     {
-        digitalWrite(RELAY_PIN, LOW);  // Deactivate the cooling system
-        digitalWrite(RED_PIN, LOW);    // Turn off the red channel
-        digitalWrite(GREEN_PIN, HIGH); // Turn on the green channel
-        digitalWrite(BLUE_PIN, LOW);   // Turn off the blue channel
+        digitalWrite(RELAY_PIN, LOW);
+        digitalWrite(RED_PIN, LOW);
+        digitalWrite(GREEN_PIN, HIGH);
+        digitalWrite(BLUE_PIN, LOW);
     }
     else
     {
-        digitalWrite(RELAY_PIN, LOW); // Deactivate the cooling system
-        digitalWrite(RED_PIN, LOW);   // Turn off the red channel
-        digitalWrite(GREEN_PIN, LOW); // Turn off the green channel
-        digitalWrite(BLUE_PIN, HIGH); // Turn on the blue channel
+        digitalWrite(RELAY_PIN, LOW);
+        digitalWrite(RED_PIN, LOW);
+        digitalWrite(GREEN_PIN, LOW);
+        digitalWrite(BLUE_PIN, HIGH);
     }
 
-    // Print the temperature to the serial monitor
     Serial.print("Temperature: ");
     Serial.print(temperature);
     Serial.println("C");
 
-    // Add a delay before the next temperature reading
     delay(1000);
 }
