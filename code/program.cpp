@@ -26,3 +26,47 @@ void setup()
 
     Serial.begin(9600);
 }
+void loop()
+{
+    // Read the temperature from the sensor
+    int tempReading = analogRead(TEMP_SENSOR_PIN);
+
+    // Convert the sensor reading to temperature in Celsius
+    float temperature = ((tempReading * 5.0) / 1024.0) * 100.0;
+
+    // Display the temperature on the LCD display
+    lcd.setCursor(0, 1);
+    lcd.print(temperature);
+    lcd.print("C");
+
+    // Activate the cooling system based on temperature thresholds
+    if (temperature >= HIGH_TEMP_THRESHOLD)
+    {
+        digitalWrite(RELAY_PIN, HIGH); // Activate the cooling system
+        digitalWrite(RED_PIN, HIGH);   // Turn on the red channel of the RGB LED
+        digitalWrite(GREEN_PIN, LOW);  // Turn off the green channel
+        digitalWrite(BLUE_PIN, LOW);   // Turn off the blue channel
+    }
+    else if (temperature <= LOW_TEMP_THRESHOLD)
+    {
+        digitalWrite(RELAY_PIN, LOW);  // Deactivate the cooling system
+        digitalWrite(RED_PIN, LOW);    // Turn off the red channel
+        digitalWrite(GREEN_PIN, HIGH); // Turn on the green channel
+        digitalWrite(BLUE_PIN, LOW);   // Turn off the blue channel
+    }
+    else
+    {
+        digitalWrite(RELAY_PIN, LOW); // Deactivate the cooling system
+        digitalWrite(RED_PIN, LOW);   // Turn off the red channel
+        digitalWrite(GREEN_PIN, LOW); // Turn off the green channel
+        digitalWrite(BLUE_PIN, HIGH); // Turn on the blue channel
+    }
+
+    // Print the temperature to the serial monitor
+    Serial.print("Temperature: ");
+    Serial.print(temperature);
+    Serial.println("C");
+
+    // Add a delay before the next temperature reading
+    delay(1000);
+}
